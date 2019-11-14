@@ -1,0 +1,24 @@
+﻿@model IEnumerable<IdentityDataConnection.Models.LopHoc>
+
+@{
+	ViewBag.Title = "Lớp học";
+	Layout = "~/Views/Shared/_LayoutTMDT.cshtml";
+}
+<div class="container" style="margin-top:25px;">
+	<div class="row">
+		@foreach (var i in Model)
+		{
+			<div class="col-md-4" style="margin-bottom:30px;">				
+					<div class="card" style="height:100%;padding:10px;">
+						<img class="card-img-top" src="@Href("~/Content/img/" + i.Img + ".jpg")" alt="Card image cap" style="height:200px">
+						<div class="card-body d-flex flex-column">
+							<h4 class="card-title"><a href="product.html" title="View Product">@i.TenLH</a></h4>
+							<p class="card-text">@i.MoTa</p>
+							<p class="card-text"><b>Học phí: @i.Gia VNĐ</b></p>
+							<a href="/GiaSuOnline/DangKy/@i.MaLH" class="btn btn-success btn-block mt-auto">Đăng ký ngay</a>							
+						</div>
+					</div>				
+			</div>
+		}
+	</div>
+</div>

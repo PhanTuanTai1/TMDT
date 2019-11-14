@@ -1,0 +1,16 @@
+﻿@model List<Bai11.Models.BaiViet>
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(".write").click(function () {
+        var index = $(".write").index(this);
+        //alert(index);
+        var url = $(".write").eq(index).data('url');
+        //alert(url);
+        $.get(url, function (data) {
+            $("#change").replaceWith(data);
+        })
+    })
+</script>*@
+<div class="col-md-8" id="change">
+    <p>Không tìm thấy bài viết thuộc chủ đề @ViewBag.Loai</p>  
+</div>

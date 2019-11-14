@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Bai11.Models.BaiViet>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index","Admin")">Quản lý bài viết</a>
+        </li>
+        <li class="breadcrumb-item active">Quản lý bài viết</li>
+    </ol>
+    <p>
+        @Html.ActionLink("Thêm bài viết mới", "AddWrite")
+    </p>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Danh sách bài viết
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Tựa bài viết: activate to sort column descending" style="width: 232px;">Tựa bài viết</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Ngày đăng: activate to sort column ascending" style="width: 232px;">Ngày đăng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Loại bài viết: activate to sort column ascending" style="width: 232px;">Loại bài viết</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Chức năng: activate to sort column ascending" style="width: 232px;">Chức năng</th>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr role="row">
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TuaBV)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayDang.Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LoaiBaiViet.TenLoai)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Sửa bài viết", "EditWrite", new { id = item.MaBV }) |
+                                                @Html.ActionLink("Xem chi tiết bài viết", "DetailWrite", new { id = item.MaBV }) |
+                                                @Html.ActionLink("Xóa bài viết", "DeleteWrite", new { id = item.MaBV })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><div class="row">
+                    <div class="col-sm-12 col-md-5">
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

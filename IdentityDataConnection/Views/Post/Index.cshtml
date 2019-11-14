@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Bai11.Models.LoaiBaiViet>
+@using Microsoft.AspNet.Identity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @*<script src="~/scripts/popper.min.js"></script>*@
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4" style="background-color:powderblue;">
+                <h5 class="text-primary">Welcome to my webblog</h5>
+            </div>
+            <div class="col-md-4" style="background-color:powderblue;">
+                <img src="@Href("~/blogs.jpg")" class="img-thumbnail" style="border:0;padding:0px;border-radius:0px;height:200px;width:100%;" />
+            </div>
+            <div class="col-md-4" style="background-color:powderblue;"></div>
+        </div>
+
+
+        <div class="row">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-success col-md-12">
+
+                <ul class="navbar-nav" style="margin:0 auto;">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" style="border-right:1px double white;">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" style="border-right:1px double white;" id="dk">Đăng ký</a>
+                    </li>
+                </ul>
+
+
+            </nav>
+        </div>
+
+
+
+        <div class="row">
+            @*<div class="col-md-8" id="change">*@
+                @{ Html.RenderAction("AllWrites", "Post");}
+            @*</div>*@
+            <div class="col-md-4">
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right", style = "border:1px double powderblue;margin:5px;padding:10px;border-radius:5px;" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @User.Identity.GetUserName()
+                                @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                            </li>
+                            <li>
+                                <a href="#" id="doimk">Đổi mật khẩu</a>
+                            </li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+                        </ul>
+                    }
+                }
+                else
+                {
+                    { Html.RenderAction("Login", "Account");}
+                }               
+                <div class="row" style="border:1px double powderblue;margin:5px;padding:10px;border-radius:5px;">
+                    <h6 style="text-align:center;margin:0 auto;width:80%;border-radius:5px;color:white;" class="bg-primary">CÁC LOẠI BÀI VIẾT</h6>
+                    <ul>
+                        @foreach (var i in Model)
+                        {
+                            <li>
+                                <a href="#" class="type" data-url="@Url.Action("Write","Post",new { id=@i.MaLoai})">@i.TenLoai</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <p class="text-white bg-success col-md-12" style="text-align:center; height:56px;line-height:56px;">Khoa CNTT - IUH</p>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var index;
+        $(".type").click(function () {
+            index = $(".type").index(this);
+            //alert(index);
+            var url = $(".type").eq(index).data('url');
+            //alert(url);
+            $.get(url,function(data)
+            {
+                $("#change").replaceWith(data);
+            })
+        })
+        $(".write").click(function () {
+            index = $(".write").index(this);
+            //alert(index);
+            var url = $(".write").eq(index).data('url');
+            //alert(url);
+            $.get(url, function (data) {
+                $("#change").replaceWith(data);
+            })
+        })
+        $("#dk").click(function () {
+            $.get("/Account/Register", function (data) {
+                $("#change").replaceWith(data);
+            })
+        })
+        $("#doimk").click(function () {
+            $.get("/Manage/ChangePassword", function (data) {
+                $("#change").replaceWith(data);
+            })
+        })
+    });
+    </script>
+</body>
+</html>

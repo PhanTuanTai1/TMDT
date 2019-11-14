@@ -1,0 +1,8 @@
+﻿@model Bai11.Models.BaiViet
+<div class="col-md-8" id="change"> 
+    <div style="border:2px dotted powderblue;padding:5px;margin:5px;">
+        <p><b style="color:blue;">@Model.TuaBV</b><br>Nội dung tóm tắt:<br />@Model.NoiDungTT<br />Nội dung chính:<br />@Html.Raw(Model.NoiDungChinh)</p>
+        <div class="row"><a href="@Url.Action("AllWrites", "Post")" class="col-md-12 type" style="width:100%;text-align:right;">Về trang trước</a></div>
+    </div>
+    @{Html.RenderAction("Comment", "Post",new { id=Model.MaBV});}
+</div>

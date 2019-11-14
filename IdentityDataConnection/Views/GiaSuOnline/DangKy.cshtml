@@ -1,0 +1,42 @@
+﻿@model IdentityDataConnection.Models.LopHoc
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_LayoutTMDT.cshtml";
+}
+<section class="page-section cta">
+	<div class="container" id="content">
+		<input type="hidden" id="id" value="@Model.MaLH" />
+		<input type="hidden" id="MaGS" value="@Model.GiaSu.MaGS" />
+		<div class="row">
+			<div class="col-xl-9 mx-auto">
+				<div class="cta-inner text-center rounded">
+					<h2 class="section-heading mb-5">
+						<span class="section-heading-lower" style="font-family:'Times New Roman';">Đăng ký khóa học</span>
+					</h2>
+					<ul class="list-unstyled list-hours mb-5 text-left mx-auto">
+						<li class="list-unstyled-item list-hours-item d-flex">
+							Tên lớp học
+							<span class="ml-auto">@Model.TenLH</span>
+						</li>
+						<li class="list-unstyled-item list-hours-item d-flex">
+							Người dạy
+							<span class="ml-auto">@Model.GiaSu.TenGS</span>
+						</li>
+						<li class="list-unstyled-item list-hours-item d-flex">
+							Học phí
+							<span class="ml-auto">@Model.Gia VNĐ</span>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-12 text-center" style="margin-top:10px;">
+			<button class="btn btn-primary" onclick="Register()">Đăng ký</button>
+		</div>
+
+	</div>
+</section>
+

@@ -1,0 +1,100 @@
+﻿@*@model IEnumerable<Bai11.Models.LoaiBaiViet>*@
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4" style="background-color:powderblue;">
+                <h5 class="text-primary">Welcome to my webblog</h5>
+            </div>
+            <div class="col-md-4" style="background-color:powderblue;">
+                <img src="@Href("~/blogs.jpg")" class="img-thumbnail" style="border:0;padding:0px;border-radius:0px;height:200px;width:100%;" />
+            </div>
+            <div class="col-md-4" style="background-color:powderblue;"></div>
+        </div>
+
+        @if (!Request.IsAuthenticated)
+        {
+        <div class="row">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-success col-md-12">
+
+                <ul class="navbar-nav" style="margin:0 auto;">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="@Url.Action("AllWrites", "Post")" style="border-right:1px double white;">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="@Url.Action("Register", "Account")" style="border-right:1px double white;" id="dk">Đăng ký</a>
+                    </li>
+                </ul>
+
+
+            </nav>
+        </div>
+        }
+        else
+        {
+            <div class="row">
+                <nav class="navbar navbar-expand-sm navbar-dark bg-success col-md-12">
+
+                    <ul class="navbar-nav" style="margin:0 auto;">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="@Url.Action("AllWrites", "Post")" style="border-right:1px double white;">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="@Url.Action("ChangePassword", "Manage")" style="border-right:1px double white;">Đổi mật khẩu</a>
+                        </li>
+
+                    </ul>
+                </nav>
+                </div>
+                }
+                <div class="row">
+                    @*<div class="col-md-8" id="change">*@
+                    @RenderBody()
+                    @*</div>*@
+                    <div class="col-md-4">
+                        @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right", style = "border:1px double powderblue;margin:5px;padding:10px;border-radius:5px;" }))
+                    {
+                                @Html.AntiForgeryToken()
+
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        Xin chào @User.Identity.GetUserName()
+                                    </li>
+                                    @if (User.IsInRole("Administrators"))
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index","Admin")">Quản lý bài viết</a>
+                                        </li>
+                                    }
+                                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+                                </ul>
+                            }
+                        }
+                        else
+                        {
+                            { Html.RenderAction("Login", "Post");
+                            }
+                        }
+                        @{ Html.RenderAction("AllType", "Post");}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <p class="text-white bg-success col-md-12" style="text-align:center; height:56px;line-height:56px;">Khoa CNTT - IUH</p>
+                </div>
+            </div>
+</body>
+</html>

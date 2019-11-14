@@ -1,0 +1,75 @@
+﻿@using IdentityDataConnection.Models
+@model LoginViewModel
+@{ 
+    Layout = null;
+}
+
+
+@if (!Request.IsAuthenticated)
+{
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>SB Admin - Login</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Custom styles for this template-->
+        <link href="~/Content/css/sb-admin.css" rel="stylesheet">
+
+    </head>
+
+    <body class="bg-dark" style="background-image:url(/Content/img/bg.jpg)">
+
+        <div class="container" style="margin:0 auto;">
+            <div class="card card-login mx-auto mt-5">
+                <div class="card-header">Đăng nhập</div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            
+                                
+								<input class="form-control" placeholder="Tài khoản" data-val="true" data-val-required="The User Name field is required." id="UserName" name="UserName" type="text" value="">
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                           
+                        </div>
+                        <div class="form-group">
+                            
+								
+								<input class="form-control" placeholder="Mật khẩu" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" placeholder="Nhập mật khẩu" type="password">
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            
+                        </div>
+                        <input type="submit" value="Đăng nhập" class="btn btn-primary btn-block" />
+						<a href="/Account/Register" class="d-block text-center mt-2 small">Đăng ký</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    </body>
+
+</html>
+}
+else {
+    @Html.Partial("~/Views/Shared/Error.cshtml")
+}

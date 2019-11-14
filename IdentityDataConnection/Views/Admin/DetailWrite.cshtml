@@ -1,0 +1,39 @@
+﻿@model Bai11.Models.BaiViet
+
+@{
+    ViewBag.Title = "DetailWrite";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index","Admin")">Quản lý bài viết</a>
+        </li>
+        <li class="breadcrumb-item active">Quản lý bài viết</li>
+    </ol>
+    <h2>Chi tiết bài viết</h2>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayFor(model => model.LoaiBaiViet.TenLoai)
+            </dt>
+            <br />
+            <dt>
+                @Html.DisplayFor(model => model.TuaBV)
+            </dt>
+            <br />
+            <dt style="font-size:12px;">
+                Đăng lúc: @Html.DisplayFor(model => model.NgayDang.Date)
+            </dt>
+            <br />
+            <dt>
+                @Html.DisplayFor(model => model.NoiDungTT)
+            </dt>
+            <br />
+            <dd>
+                @Html.Raw(Model.NoiDungChinh)
+            </dd>
+        </dl>
+    </div>
+</div>

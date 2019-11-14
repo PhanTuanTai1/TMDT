@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Bai11.Models.LoaiBaiViet>
+<div class="row" style="border:1px double powderblue;margin:5px;padding:10px;border-radius:5px;">
+    <h6 style="text-align:center;margin:0 auto;width:80%;border-radius:5px;color:white;" class="bg-primary">CÁC LOẠI BÀI VIẾT</h6>
+    <ul>
+        @foreach (var i in Model)
+        {
+            <li>
+                <a href="@Url.Action("Write","Post",new { id=@i.MaLoai})">@i.TenLoai</a>
+            </li>
+        }
+    </ul>
+</div>
+

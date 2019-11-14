@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Bai11.Models.Comment>
+@if (!Request.IsAuthenticated)
+{
+<form action="@Url.Action("Comment","Post")" method="post">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="text" class="form-control" name="id" hidden value="@ViewBag.MaBV"/>
+    <label>Comment</label>
+    <hr />
+    <div class="form-group col-xs-3">
+        <label>Nội dung comment</label>
+        <textarea class="form-control" name="noidung"></textarea>
+        @Html.ValidationMessage("noidung", "", new { @class = "text-danger" })
+    </div>
+    <br />
+    <div class="form-group col-xs-3" style="clear:both;">
+        <label>Nhập username</label><br />
+        <input type="text" class="form-control" name="emailCmt"/>
+        @Html.ValidationMessage("emailCmt", "", new { @class = "text-danger" })
+    </div>
+    <input type="submit" class="btn btn-primary" value="Gửi bình luận"/>
+</form>
+<div>
+    <h6>Các bình luận</h6>
+    @foreach (var i in Model)
+    {    
+        <div style="border:2px dotted powderblue;padding:5px;margin:5px;">
+            <label>@i.TaiKhoan.TenDayDu</label><br />
+            <span>@i.NoiDung</span>
+            <hr />
+            <p style="text-align:right">@i.NgayComment</p>
+        </div>
+    }  
+</div>
+}
+else
+{
+    <form action="@Url.Action("Comment","Post")" method="post">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <label>Comment</label>
+        <input type="text" class="form-control" name="id" hidden value="@ViewBag.MaBV" />
+        <input type="text" class="form-control" name="emailCmt" value="@User.Identity.GetUserName()" hidden />
+        <hr />
+        <div class="form-group col-xs-3">
+            <label>Nội dung comment</label>
+            <textarea class="form-control" name="noidung"></textarea>
+            @Html.ValidationMessage("noidung", "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <input type="submit" value="Gửi bình luận" class="btn btn-primary"/>
+    </form>
+    <div>
+        <h6>Các bình luận</h6>
+        @foreach (var i in Model)
+        {
+            <div style="border:2px dotted powderblue;padding:5px;margin:5px;">
+                <label>@i.TaiKhoan.TenDayDu</label><br />
+                <span>@i.NoiDung</span>
+                <hr />
+                <p style="text-align:right">@i.NgayComment</p>
+            </div>
+        }
+    </div>
+}
